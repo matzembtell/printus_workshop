@@ -1,0 +1,269 @@
+table Customer
+	lineageTag: 5b3fdd3a-ac3e-43de-be56-8326d8f0d997
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 00cdd564-177e-4750-bf85-8b76eaa1aea9
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a21c4c6-f02a-4b04-a741-ebfdc107503e
+		summarizeBy: count
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 082c7e0d-6f2e-498d-8121-edf790165d07
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: fa43b692-60af-423b-8dde-f6e9c21be743
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: cd2eafaf-0d16-4272-97ed-2eff3f15ca97
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Education
+		dataType: string
+		lineageTag: c6d39f9c-d9de-497b-bda3-042fbb2fdd79
+		summarizeBy: none
+		sourceColumn: Education
+
+		annotation SummarizationSetBy = Automatic
+
+	column Occupation
+		dataType: string
+		lineageTag: 4a946f5f-dd16-4b58-8ea3-256b45f9b0e8
+		summarizeBy: none
+		sourceColumn: Occupation
+
+		annotation SummarizationSetBy = Automatic
+
+	column Continent
+		dataType: string
+		lineageTag: 98e78907-288b-4ae3-aef4-32e221bd4a78
+		summarizeBy: none
+		sourceColumn: Continent
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: db5484e1-f2a4-4887-b3cc-94a76da062b3
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: f758d77f-a828-444a-a16c-61f3f446af35
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: ed95a267-3198-4c40-aeb7-ca7f2945351a
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column Phone
+		dataType: string
+		lineageTag: 6b113f7c-e45c-4906-90f5-a6502a008e60
+		summarizeBy: none
+		sourceColumn: Phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income category' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    Customer[Yearly Income] < 70000, "Low",
+			    Customer[Yearly Income] < 130000, "Middle",
+			    Customer[Yearly Income] >= 130000, "High"
+			)
+			
+			```
+		lineageTag: f67413ab-3fbe-48a0-bc63-8a9dba4b0125
+		summarizeBy: none
+		sortByColumn: 'Income category Sort'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Income category Sort' = ```
+			
+			SWITCH(
+			    TRUE(),
+			    Customer[Yearly Income] < 70000, 0,
+			    Customer[Yearly Income] < 130000, 1,
+			    Customer[Yearly Income] >= 130000, 2
+			)
+			
+			```
+		formatString: 0
+		lineageTag: ec4c9ff3-5cdd-40f9-a288-7541b8df3fc5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: f50f10fb-a576-4de9-96cb-07ade42806f9
+		summarizeBy: none
+		sourceColumn: Customer_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Birth_Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1d5449b8-0099-4264-99c7-b461fae4bf14
+		summarizeBy: none
+		sourceColumn: Birth_Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Marital_Status
+		dataType: string
+		lineageTag: b0eb4654-1462-496e-9fea-254f7fc48de2
+		summarizeBy: none
+		sourceColumn: Marital_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Yearly_Income
+		dataType: int64
+		formatString: 0
+		lineageTag: ea84ac8b-a564-42e6-b484-a7824c464529
+		summarizeBy: none
+		sourceColumn: Yearly_Income
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Children
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a08a66a-365b-490d-863a-0d956b71fc19
+		summarizeBy: none
+		sourceColumn: Total_Children
+
+		annotation SummarizationSetBy = Automatic
+
+	column Children_At_Home
+		dataType: int64
+		formatString: 0
+		lineageTag: b9490b6c-0d1d-4079-bb3b-48969a2baf68
+		summarizeBy: none
+		sourceColumn: Children_At_Home
+
+		annotation SummarizationSetBy = Automatic
+
+	column House_Ownership
+		dataType: string
+		lineageTag: 04c7f5a8-9a60-45f4-a940-e81ff65cb32e
+		summarizeBy: none
+		sourceColumn: House_Ownership
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cars_Owned
+		dataType: int64
+		formatString: 0
+		lineageTag: b2b2951a-c8b3-424c-ba7f-14ac8ef8e44c
+		summarizeBy: none
+		sourceColumn: Cars_Owned
+
+		annotation SummarizationSetBy = Automatic
+
+	column Address_Line_1
+		dataType: string
+		lineageTag: bae30773-5f64-4096-aff5-dfe5f93ce1b3
+		summarizeBy: none
+		sourceColumn: Address_Line_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Address_Line_2
+		dataType: string
+		lineageTag: 053f6277-6dbb-4ecb-9732-4720613f0073
+		summarizeBy: none
+		sourceColumn: Address_Line_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date_First_Purchase
+		dataType: string
+		lineageTag: 64674003-a1db-4046-aca0-39f0fc647337
+		summarizeBy: none
+		sourceColumn: Date_First_Purchase
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer_Type
+		dataType: string
+		lineageTag: 73269354-fc42-4298-b729-0d95b6e09860
+		summarizeBy: none
+		sourceColumn: Customer_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Income_category
+		dataType: string
+		lineageTag: 56ef4393-b736-4f5e-992e-c306b710440f
+		summarizeBy: none
+		sourceColumn: Income_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Income_category_Sort
+		dataType: int64
+		formatString: 0
+		lineageTag: d4a2dd31-73c0-4445-92a4-7cede0c5c4f7
+		summarizeBy: none
+		sourceColumn: Income_category_Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customer-f8db7329-69bf-4f32-a68e-f830de86cde2 = m
+		mode: import
+		source =
+				let
+				    Source = stg_contoso,
+				    dbo_customer = Source{[Schema="dbo",Item="customer"]}[Data]
+				in
+				    dbo_customer
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,83 @@
+table Product
+	lineageTag: e00a23dd-a7cc-4d0b-9341-5ef4e8c7883f
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c18f8cc-1c70-4e6b-9fec-626a7f0d3c18
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSubcategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 4dc5f0db-2aeb-4f7b-86ca-7d6b48cf0a90
+		summarizeBy: none
+		sourceColumn: ProductSubcategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Manufacturer
+		dataType: string
+		lineageTag: 8cbc557b-1c22-4e1c-9819-f61be0324561
+		summarizeBy: none
+		sourceColumn: Manufacturer
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		dataType: string
+		lineageTag: a9ef73cf-6a7b-4633-bec1-3fefe814de16
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column Class
+		dataType: string
+		lineageTag: 086ae0e5-29fc-4e35-a546-e189b7b935f3
+		summarizeBy: none
+		sourceColumn: Class
+
+		annotation SummarizationSetBy = Automatic
+
+	column Color
+		dataType: string
+		lineageTag: f7bf4633-1a83-4c37-8d40-7c49076255b8
+		summarizeBy: none
+		sourceColumn: Color
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 249e1781-3e89-46d2-b15a-b34b633c1547
+		summarizeBy: count
+		sourceColumn: Product_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product_Name
+		dataType: string
+		lineageTag: 42317517-3b65-43aa-a7cb-e39e53bf9971
+		summarizeBy: none
+		sourceColumn: Product_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Product-ab6d5dc5-c3db-4d75-bbdf-1f3d5af0c3d1 = m
+		mode: import
+		source =
+				let
+				    Source = stg_contoso,
+				    dbo_product = Source{[Schema="dbo",Item="product"]}[Data]
+				in
+				    dbo_product
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,80 @@
+table allMeasures
+	lineageTag: c966c1c6-b21d-4669-be7f-774fcd14c2ef
+
+	measure Sales = SUM(Sales[Sales amount])
+		formatString: #,0
+		lineageTag: 39fc0c88-6fa3-462b-beb6-c99e2baff9d3
+
+		changedProperty = FormatString
+
+	measure '# Customer' = DISTINCTCOUNT( Sales[CustomerKey] )
+		formatString: #,0
+		lineageTag: bbc221df-2f73-4a5e-a9b7-800713eceee7
+
+		changedProperty = FormatString
+
+	measure '# Sold items' = SUM( Sales[Quantity] )
+		formatString: #,0
+		lineageTag: d9b12d5b-19f4-4db1-b1be-29fac8fed4a5
+
+		changedProperty = FormatString
+
+	measure '# Product Category' = COUNTROWS(SUMMARIZE(Sales,'Product Category'[Category]))
+		formatString: 0
+		lineageTag: d2de2a52-e5c0-4267-9156-d3f1e22a6418
+
+	measure 'PY Sales' = ```
+			
+			CALCULATE([Sales], SAMEPERIODLASTYEAR('Calendar'[Date]))
+			
+			```
+		formatString: #,0
+		lineageTag: abdce7b4-cdfe-4385-9530-4f7dcd7c83f0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Δ PY Sales' =
+			
+			[Sales] - [PY Sales]
+		formatString: #,0
+		lineageTag: 3f29aa52-4fd3-41db-836c-60136493ec11
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Δ PY Sales Graph' =
+			
+			[Sales] - [PY Sales]
+		formatString: #,0
+		lineageTag: c207430f-8ae4-4737-9c06-5d242dcdb7f0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Sales Graph' = [Sales]
+		lineageTag: 3d5d196d-4347-4b8f-870f-b43a4b43c388
+
+		formatStringDefinition = "#,0,.#"
+
+	measure 'Δ % PY Sales' = ```
+			
+			DIVIDE(
+			    [# Sold items] - [PY Sales], 
+			    [PY Sales]
+			)
+			```
+		formatString: 0%;-0%;0%
+		lineageTag: 79c41a77-0322-43d3-ba29-e23c353e1907
+
+	partition allMeasures-c6e3fca1-6ccd-4788-be1d-0488cc7d898d = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Measure = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Measure", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Measure"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

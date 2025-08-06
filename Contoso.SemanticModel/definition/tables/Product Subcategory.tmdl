@@ -1,0 +1,57 @@
+table 'Product Subcategory'
+	lineageTag: 6ee41025-d3ff-4a95-86cd-ef9040f5b901
+
+	column ProductSubcategoryKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 07e63dd9-8c65-4016-b7b5-0dd1481683a5
+		summarizeBy: none
+		sourceColumn: ProductSubcategoryKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subcategory
+		dataType: string
+		lineageTag: 3b0f3c53-0abe-45fd-917b-88f231c22669
+		summarizeBy: none
+		sourceColumn: Subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategoryKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: da155c11-064e-4692-8bdd-118ca824a183
+		summarizeBy: none
+		sourceColumn: ProductCategoryKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subcategory_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: ccd940e7-2f4b-4c49-bef2-ef62d8575ce2
+		summarizeBy: count
+		sourceColumn: Subcategory_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Product Subcategory-eb2eed40-485a-492a-9375-9a3b04680b1e' = m
+		mode: import
+		source =
+				let
+				    Source = stg_contoso,
+				    dbo_productSubcategories = Source{[Schema="dbo",Item="productSubcategories"]}[Data]
+				in
+				    dbo_productSubcategories
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

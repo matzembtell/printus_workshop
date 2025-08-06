@@ -1,0 +1,96 @@
+expression Date =
+		let
+		    Source = stg_contoso,
+		    dbo_calendar = Source{[Schema="dbo",Item="calendar"]}[Data]
+		in
+		    dbo_calendar
+	lineageTag: 1cceeb7e-b9a2-48e6-a4ed-4281e463425c
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Query1 = ```
+		let
+		    Quelle = (StartDate as date, EndDate as date, optional Culture as nullable text) as table =>
+		  let
+		DayCount = Duration.Days(Duration.From(EndDate - StartDate)),
+		Source = List.Dates(StartDate,DayCount,#duration(1,0,0,0)),
+		TableFromList = Table.FromList(Source, Splitter.SplitByNothing()),
+		ChangedType           = Table.TransformColumnTypes(TableFromList,{{"Column1", type date}}),
+		RenamedColumns        = Table.RenameColumns(ChangedType,{{"Column1", "Date"}}),														 //1.1.2010
+		
+		
+		InsertYear            = Table.AddColumn(RenamedColumns				, "Year", each Date.Year([Date])),										 //2010
+		
+		InsertISOYear 			= Table.AddColumn(InsertYear				, "ISOYear", each Date.Year(Date.AddDays([Date],3-Date.DayOfWeek([Date],1))), type number),
+		InsertRefDate 			= Table.AddColumn(InsertISOYear 			, "RefDate", each #date([ISOYear],1,3)),
+		InsertISOWeekOfYear 	= Table.AddColumn(InsertRefDate 			, "ISOWeekOfYear"	 , each Number.IntegerDivide(Duration.Days( [Date]-[RefDate])+Date.DayOfWeek([RefDate],0)+6,7), type number ),
+		InsertISOWeekOfYearName = Table.AddColumn(InsertISOWeekOfYear 		        , "ISOWeekOfYearName", each "W" & Text.PadStart( Number.ToText([ISOWeekOfYear]),2,"0") ),
+		InsertISOWeekOfYearNameInCal = Table.AddColumn(InsertISOWeekOfYearName 		, "ISOWeekOfYearNameInCal", each Number.ToText([ISOYear]) & Number.ToText([ISOWeekOfYear],"-W00")),
+		InsertISOYYYYWW = Table.AddColumn(InsertISOWeekOfYearNameInCal 			, "ISOYYYYWW", each [ISOYear] * 100 + [ISOWeekOfYear], type number),
+		RemovedColumns = Table.RemoveColumns(InsertISOYYYYWW ,{"RefDate"}) ,
+		
+			
+		InsertQuarterOfYear     = Table.AddColumn(RemovedColumns		 	, "QuarterOfYear", each Date.QuarterOfYear([Date])),					 //4
+		InsertQuarterOfYearName = Table.AddColumn(InsertQuarterOfYear		, "QuarterOfYearName", each "Q" & Number.ToText([QuarterOfYear])) ,		 //Q4
+		InsertCalendarQtr      	= Table.AddColumn(InsertQuarterOfYearName	, "QuarterInCal", each "Q" & Number.ToText([QuarterOfYear]) & " " & Number.ToText([Year])),	//Q4 2010
+		
+		InsertMonthOfYear     	= Table.AddColumn(InsertCalendarQtr			, "MonthOfYear", each Date.Month([Date])),								 //12
+		InsertMonthName       	= Table.AddColumn(InsertMonthOfYear			, "MonthName", each Date.ToText([Date], "MMM", Culture), type text),	 // Jan
+		InsertCalendarMonth   	= Table.AddColumn(InsertMonthName			, "MonthInCal", each (try(Text.Range([MonthName],0,3)) otherwise [MonthName]) & " " & Number.ToText([Year])), //Jan 2010
+		
+		InsertWeekOfYear      	= Table.AddColumn(InsertCalendarMonth		, "WeekOfYear", each Date.WeekOfYear([Date])),							 //54
+		InsertWeekOfYearName    = Table.AddColumn(InsertWeekOfYear			, "WeekOfYearName", each "W" & Text.PadStart( Number.ToText([WeekOfYear]),2,"0") ),					 //KW54
+		InsertWeekOfMonth     	= Table.AddColumn(InsertWeekOfYearName		, "WeekOfMonth", each Date.WeekOfMonth([Date])),						 //5
+		
+		
+		InsertDayOfYear       = Table.AddColumn(InsertWeekOfMonth			, "DayOfYear", each Date.DayOfYear([Date])),							 //365
+		InsertDayOfMonth      = Table.AddColumn(InsertDayOfYear				, "DayOfMonth", each Date.Day([Date])),									 //31
+		InsertDayOfWeek       = Table.AddColumn(InsertDayOfMonth			, "DayOfWeek", each Date.DayOfWeek([Date],Day.Monday)+1),							 //7
+		
+		InsertDayName         = Table.AddColumn(InsertDayOfWeek				, "DayOfWeekName", each Date.ToText([Date], "dddd", Culture), type text),  //Freitag
+		InsertWeekStart      = Table.AddColumn(InsertDayName				, "WeekStart", each Date.StartOfWeek([Date],Day.Monday), type date),  //1.1.2010
+		InsertWeekEnding      = Table.AddColumn(InsertWeekStart				, "WeekEnding", each Date.EndOfWeek([Date]), type date) , //1.1.2010
+		InsertDayInt          = Table.AddColumn(InsertWeekEnding			, "DateInt", each [Year] * 10000 + [MonthOfYear] * 100 + [DayOfMonth])   //20101212
+		  in
+		    InsertDayInt
+		in
+		    Quelle
+		```
+	lineageTag: 50578507-8dc3-498b-9931-13ac56226f06
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Function
+
+expression PathToSourceFiles = "C:\Users\MarcoGregorBielbtell\b.telligent group\b.telligent (Basel) - CC BBS - Trainings BBS\Power BI\DAX\Daten_ContosoRetailDW" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: 7b52d61f-9c1b-4fe0-858b-8f2cfb41b453
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression sql-connection = "mama-training.database.windows.net" meta [IsParameterQuery=true, List={"mama-training.database.windows.net", "mama-training-test."}, DefaultValue=..., Type="Text", IsParameterQueryRequired=true]
+	lineageTag: b715f5d8-2e54-420d-87a9-f4f29c44ba7d
+
+	annotation PBI_ResultType = Text
+
+expression database = "contoso_dev" meta [IsParameterQuery=true, List={"contoso", "contoso_test", "contoso_dev"}, DefaultValue=..., Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 90bfc1be-eaf8-4a20-b60b-a1c846b9561c
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression stg_contoso =
+		let
+		    Source = Sql.Database(#"sql-connection", database)
+		in
+		    Source
+	lineageTag: 3e57fd0a-7ac6-4bef-8da5-1d0fd44d46a8
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

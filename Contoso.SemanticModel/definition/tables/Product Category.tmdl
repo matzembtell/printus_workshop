@@ -1,0 +1,45 @@
+table 'Product Category'
+	lineageTag: bcc20220-7d78-4179-b8d3-56ea05b89663
+
+	column ProductCategoryKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c330a79b-7305-4d9b-8b44-a18a08f894d0
+		summarizeBy: none
+		sourceColumn: ProductCategoryKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 39df95f4-ca62-40cb-a891-d125c4eafcda
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: c3f845fa-0c24-438f-946b-b39b8f5dcaa2
+		summarizeBy: none
+		sourceColumn: Category_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Product Category-6ad021ea-5aa6-4e66-b1ce-53a2ecee4425' = m
+		mode: import
+		source =
+				let
+				    Source = stg_contoso,
+				    dbo_productCategories = Source{[Schema="dbo",Item="productCategories"]}[Data]
+				in
+				    dbo_productCategories
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,205 @@
+table Calendar
+	lineageTag: e50e2cee-3f70-4139-b9b0-9c5d8e051ff2
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 77080770-14b6-4f73-aec3-4cd6a4476d87
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 3948acf7-6254-4e8b-a4c4-2eb4f9801f0f
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterOfYear
+		dataType: int64
+		formatString: 0
+		lineageTag: fedf1af8-6813-4265-baee-8b776655c974
+		summarizeBy: none
+		sourceColumn: QuarterOfYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterOfYearName
+		dataType: string
+		lineageTag: 4f981602-8b66-47db-8674-e7545f1d672a
+		summarizeBy: none
+		sourceColumn: QuarterOfYearName
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterInCal
+		dataType: string
+		lineageTag: 73a7d671-5ff8-4036-9442-81c349e95ffd
+		summarizeBy: none
+		sourceColumn: QuarterInCal
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthOfYear
+		dataType: int64
+		formatString: 0
+		lineageTag: a825974a-44cf-410a-b87e-009b3168a83f
+		summarizeBy: none
+		sourceColumn: MonthOfYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: b7e81262-f51f-4ce9-865b-5edec07e126f
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: MonthOfYear
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthInCal
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 92c5865b-796c-4a53-89f5-1b6fbb287c87
+		summarizeBy: none
+		sourceColumn: MonthInCal
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column WeekOfYear
+		dataType: int64
+		formatString: 0
+		lineageTag: 22db9452-8bee-4215-8418-a6852b4a3d5d
+		summarizeBy: none
+		sourceColumn: WeekOfYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekOfYearName
+		dataType: string
+		lineageTag: ca5fdb73-f73e-4d31-b04f-83aa2da0625c
+		summarizeBy: none
+		sourceColumn: WeekOfYearName
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekOfMonth
+		dataType: int64
+		formatString: 0
+		lineageTag: 2c1a335c-5cfd-4bed-96dd-136bb8fcc90e
+		summarizeBy: none
+		sourceColumn: WeekOfMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfYear
+		dataType: int64
+		formatString: 0
+		lineageTag: d5ce99e9-3061-46df-9352-e75e71eb668a
+		summarizeBy: none
+		sourceColumn: DayOfYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfMonth
+		dataType: int64
+		formatString: 0
+		lineageTag: 55c5b83d-16f9-425d-8fa5-3b9684bbe867
+		summarizeBy: none
+		sourceColumn: DayOfMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeek
+		dataType: int64
+		formatString: 0
+		lineageTag: d465d802-ab18-454e-99f8-c169658899b4
+		summarizeBy: none
+		sourceColumn: DayOfWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	column DayOfWeekName
+		dataType: string
+		lineageTag: f5e808f9-3435-4c87-9f2e-01b2d4f150e7
+		summarizeBy: none
+		sourceColumn: DayOfWeekName
+		sortByColumn: DayOfWeek
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekStart
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3c853609-7234-46f5-952c-31ed733d4885
+		summarizeBy: none
+		sourceColumn: WeekStart
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column WeekEnding
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c512d5a1-db27-4541-9e89-d5cffa8b7cd9
+		summarizeBy: none
+		sourceColumn: WeekEnding
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column DateInt
+		dataType: int64
+		formatString: 0
+		lineageTag: 40e695a3-1083-46e1-a972-c7d642ccfb15
+		summarizeBy: none
+		sourceColumn: DateInt
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Date Hierarchy'
+		lineageTag: b48d5f87-3bb1-4e10-b14d-3787d3c99eb5
+
+		level Year
+			lineageTag: a855b93f-4061-4268-94ae-4220c519db2b
+			column: Year
+
+		level QuarterOfYear
+			lineageTag: e66bb7ab-b5d1-4692-b662-95469a16608c
+			column: QuarterOfYear
+
+		level MonthOfYear
+			lineageTag: 2267e666-7ede-40f3-b43f-913e37eae4e5
+			column: MonthOfYear
+
+		level DayOfMonth
+			lineageTag: a2e224f1-ce38-43c5-8df4-17af9115d521
+			column: DayOfMonth
+
+	partition Calendar-0a9f19b7-2b24-4734-b25a-a98fdebdc05f = m
+		mode: import
+		source =
+				let
+				    Source = Query1(#date(2018, 1, 1), #date(2022, 12, 31), null),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Year", Int64.Type}, {"Date", type date}, {"ISOYear", Int64.Type}, {"ISOWeekOfYear", Int64.Type}, {"ISOWeekOfYearName", type text}, {"ISOWeekOfYearNameInCal", type text}, {"ISOYYYYWW", Int64.Type}, {"QuarterOfYear", Int64.Type}, {"QuarterOfYearName", type text}, {"QuarterInCal", type text}, {"MonthOfYear", Int64.Type}, {"MonthName", type text}, {"MonthInCal", type date}, {"WeekOfYear", Int64.Type}, {"WeekOfYearName", type text}, {"WeekOfMonth", Int64.Type}, {"DayOfYear", Int64.Type}, {"DayOfMonth", Int64.Type}, {"DayOfWeek", Int64.Type}, {"DayOfWeekName", type text}, {"WeekStart", type date}, {"WeekEnding", type date}, {"DateInt", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"ISOWeekOfYear", "ISOWeekOfYearName", "ISOWeekOfYearNameInCal", "ISOYear", "ISOYYYYWW"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

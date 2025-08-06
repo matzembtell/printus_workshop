@@ -1,0 +1,20 @@
+relationship 0d0eea35-9a71-4205-8b7b-92d64c8fd5e2
+	fromColumn: Sales.CustomerKey
+	toColumn: Customer.CustomerKey
+
+relationship 7df84f62-03a3-40f2-a425-c8397d498e9a
+	fromColumn: Sales.ProductKey
+	toColumn: Product.ProductKey
+
+relationship 08f93af6-8e3f-4837-b21d-784973333475
+	fromColumn: Product.ProductSubcategoryKey
+	toColumn: 'Product Subcategory'.ProductSubcategoryKey
+
+relationship 651b11ea-d0fe-4742-a987-0bed6ff2bbb1
+	fromColumn: 'Product Subcategory'.ProductCategoryKey
+	toColumn: 'Product Category'.ProductCategoryKey
+
+relationship e5288728-ac37-6ac7-1817-9a25a80bbef7
+	fromColumn: Sales.Order_Date
+	toColumn: Calendar.Date
+
