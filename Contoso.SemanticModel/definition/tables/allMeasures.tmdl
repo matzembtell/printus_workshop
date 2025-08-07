@@ -76,6 +76,10 @@ table allMeasures
 		formatString: 0
 		lineageTag: b8aefc8c-d7ac-447d-8654-011a4d250190
 
+	measure 'Count Sales' = COUNTROWS(Sales)
+		formatString: 0
+		lineageTag: c2b6acf2-599e-4343-8f3c-b26d618a61d7
+
 	partition allMeasures-c6e3fca1-6ccd-4788-be1d-0488cc7d898d = m
 		mode: import
 		source =
