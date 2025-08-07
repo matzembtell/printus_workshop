@@ -64,6 +64,10 @@ table allMeasures
 		formatString: 0%;-0%;0%
 		lineageTag: 79c41a77-0322-43d3-ba29-e23c353e1907
 
+	measure '# Sales Product Category' = 0
+		formatString: 0
+		lineageTag: b8aefc8c-d7ac-447d-8654-011a4d250190
+
 	partition allMeasures-c6e3fca1-6ccd-4788-be1d-0488cc7d898d = m
 		mode: import
 		source =
