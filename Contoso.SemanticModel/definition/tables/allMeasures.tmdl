@@ -64,6 +64,10 @@ table allMeasures
 		formatString: 0%;-0%;0%
 		lineageTag: 79c41a77-0322-43d3-ba29-e23c353e1907
 
+	measure '# Sales Product Category' = 0
+		formatString: 0
+		lineageTag: b8aefc8c-d7ac-447d-8654-011a4d250190
+
 	measure 'PY # Sold Items' = ```
 			
 			CALCULATE([# Sold items], SAMEPERIODLASTYEAR('Calendar'[Date]))
