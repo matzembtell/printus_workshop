@@ -64,6 +64,14 @@ table allMeasures
 		formatString: 0%;-0%;0%
 		lineageTag: 79c41a77-0322-43d3-ba29-e23c353e1907
 
+	measure 'PY # Sold Items' = ```
+			
+			CALCULATE([# Sold items], SAMEPERIODLASTYEAR('Calendar'[Date]))
+			
+			```
+		formatString: 0
+		lineageTag: ca9c699f-3b4c-4a12-aa5f-7a6afb295036
+
 	partition allMeasures-c6e3fca1-6ccd-4788-be1d-0488cc7d898d = m
 		mode: import
 		source =
