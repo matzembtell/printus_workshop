@@ -23,7 +23,7 @@
                       "Entity": "Product"
                     }
                   },
-                  "Property": "Brand"
+                  "Property": "Brands"
                 }
               },
               "queryRef": "Product.Brand",

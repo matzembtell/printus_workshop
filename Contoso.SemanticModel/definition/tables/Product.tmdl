@@ -27,11 +27,11 @@ table Product
 
 		annotation SummarizationSetBy = Automatic
 
-	column Brand
+	column Brands
 		dataType: string
 		lineageTag: a9ef73cf-6a7b-4633-bec1-3fefe814de16
 		summarizeBy: none
-		sourceColumn: Brand
+		sourceColumn: Brands
 
 		annotation SummarizationSetBy = Automatic
 
@@ -73,9 +73,10 @@ table Product
 		source =
 				let
 				    Source = stg_contoso,
-				    dbo_product = Source{[Schema="dbo",Item="product"]}[Data]
+				    dbo_product = Source{[Schema="dbo",Item="product"]}[Data],
+				    #"Umbenannte Spalten" = Table.RenameColumns(dbo_product,{{"Brand", "Brands"}})
 				in
-				    dbo_product
+				    #"Umbenannte Spalten"
 
 	annotation PBI_NavigationStepName = Navigation
 
