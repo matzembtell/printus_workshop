@@ -43,7 +43,7 @@ table allMeasures
 
 	measure 'Δ PY Sales Graph' =
 			
-			[Sales] - [PY Sales]
+			[Sales] - [PY Sales] // Neuer Kommentar
 		formatString: #,0
 		lineageTag: c207430f-8ae4-4737-9c06-5d242dcdb7f0
 
@@ -67,6 +67,14 @@ table allMeasures
 	measure '# Sales Product Category' = 0
 		formatString: 0
 		lineageTag: b8aefc8c-d7ac-447d-8654-011a4d250190
+
+	measure 'PY # Sold Items' = ```
+			
+			CALCULATE([# Sold items], SAMEPERIODLASTYEAR('Calendar'[Date]))
+			
+			```
+		formatString: 0
+		lineageTag: ca9c699f-3b4c-4a12-aa5f-7a6afb295036
 
 	partition allMeasures-c6e3fca1-6ccd-4788-be1d-0488cc7d898d = m
 		mode: import
