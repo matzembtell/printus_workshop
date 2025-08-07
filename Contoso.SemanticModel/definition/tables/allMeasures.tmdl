@@ -43,7 +43,7 @@ table allMeasures
 
 	measure 'Δ PY Sales Graph' =
 			
-			[Sales] - [PY Sales]
+			[Sales] - [PY Sales] // Neuer Kommentar
 		formatString: #,0
 		lineageTag: c207430f-8ae4-4737-9c06-5d242dcdb7f0
 
